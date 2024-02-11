@@ -5,6 +5,7 @@ from PyQt5.QtCore import QFile
 import yaml
 import requests
 from app.drawing_widget import DrawingWidget
+import time
 
 class PaintApp(QMainWindow):
     def __init__(self):
@@ -26,7 +27,6 @@ class PaintApp(QMainWindow):
 
         self.current_version = "v1.0"
         self.check_for_updates()
-
 
     def check_for_updates(self):
         try:
