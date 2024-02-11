@@ -35,3 +35,5 @@ dialogs:
   open: "Abrir Imagen"
   save: "Guardar Imagen"
   image_filter: "Imágenes (*.png *.jpg *.bmp)"
+  open_in_paint_confirmation: "¿Estás seguro de que quieres abrir el dibujo en Paint?"
+  open_in_paint_title: "Abrir en paint"
