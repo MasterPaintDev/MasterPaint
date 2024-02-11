@@ -39,7 +39,12 @@ class DrawingWidget(QWidget):
         color = QColorDialog.getColor()
         if color.isValid():
             self.pen_color = color
+            self.update_color_button(color)
             self.update()
+
+    def update_color_button(self, color):
+        color_style = f"background-color: {color.name()}"
+        self.color_button.setStyleSheet(color_style)
 
     def paintEvent(self, event):
         painter = QPainter(self)
