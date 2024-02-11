@@ -1,0 +1,36 @@
+actions:
+  open: "Abrir"
+  save: "Guardar"
+  clear: "Limpiar"
+  choose_color: "Seleccionar Color"
+  exit: "Salir"
+  show_updates: "Mostrar Actualizaciones"
+
+menus:
+  file: "Archivo"
+  updates: "Actualizaciones"
+  language: "Idioma"
+
+buttons:
+  draw: "Dibujar"
+  clear: "Limpiar"
+  choose_color: "Seleccionar Color"
+
+tabs:
+  canvas: "Lienzo"
+  updates: "Actualizaciones"
+
+updates:
+  version_1_0: "Versión 1.0:"
+  initial_release: "- Lanzamiento inicial"
+  multi_languages: "- 4 nuevos idiomas disponibles"
+  hexcolor_support: "- Master paint cuenta con soporte de hexcolor integrado"
+
+dialogs:
+  exit_title: "Salir"
+  exit_message: "¿Está seguro de que desea salir? Se perderán los cambios no guardados."
+  save_changes_title: "Guardar Cambios"
+  save_changes_message: "¿Desea guardar los cambios?"
+  open: "Abrir Imagen"
+  save: "Guardar Imagen"
+  image_filter: "Imágenes (*.png *.jpg *.bmp)"

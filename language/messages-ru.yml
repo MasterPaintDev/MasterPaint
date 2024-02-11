@@ -1,0 +1,36 @@
+actions:
+  open: "Открыть"
+  save: "Сохранить"
+  clear: "Очистить"
+  choose_color: "Выбрать Цвет"
+  exit: "Выход"
+  show_updates: "Показать Обновления"
+
+menus:
+  file: "Файл"
+  updates: "Обновления"
+  language: "Язык"
+
+buttons:
+  draw: "Нарисовать"
+  clear: "Очистить"
+  choose_color: "Выбрать Цвет"
+
+tabs:
+  canvas: "Холст"
+  updates: "Обновления"
+
+updates:
+  version_1_0: "Версия 1.0:"
+  initial_release: "- Начальный релиз"
+  multi_languages: "- Доступны 4 новых языка"
+  hexcolor_support: "- Мастер-краски имеют встроенную поддержку шестицветия"
+
+dialogs:
+  exit_title: "Выход"
+  exit_message: "Вы уверены, что хотите выйти? Несохранённые изменения будут потеряны."
+  save_changes_title: "Сохранить Изменения"
+  save_changes_message: "Хотите сохранить изменения?"
+  open: "Открыть Изображение"
+  save: "Сохранить Изображение"
+  image_filter: "Изображения (*.png *.jpg *.bmp)"

@@ -1,0 +1,36 @@
+actions:
+  open: "Open"
+  save: "Save"
+  clear: "Clear"
+  choose_color: "Choose Color"
+  exit: "Exit"
+  show_updates: "Show Updates"
+
+menus:
+  file: "File"
+  updates: "Updates"
+  language: "Language"
+
+buttons:
+  draw: "Draw"
+  clear: "Clear"
+  choose_color: "Choose Color"
+
+tabs:
+  canvas: "Canvas"
+  updates: "Updates"
+
+updates:
+  version_1_0: "Version 1.0:"
+  initial_release: "- Initial release"
+  multi_languages: "- 4 new languages available"
+  hexcolor_support: "- Master paint has integrated hexcolor support"
+
+dialogs:
+  exit_title: "Exit"
+  exit_message: "Are you sure you want to exit? Any unsaved changes will be lost."
+  save_changes_title: "Save Changes"
+  save_changes_message: "Do you want to save your changes?"
+  open: "Open Image"
+  save: "Save Image"
+  image_filter: "Images (*.png *.jpg *.bmp)"

@@ -1,0 +1,36 @@
+actions:
+  open: "開く"
+  save: "保存"
+  clear: "クリア"
+  choose_color: "色を選択"
+  exit: "終了"
+  show_updates: "更新を表示"
+
+menus:
+  file: "ファイル"
+  updates: "更新"
+  language: "言語"
+
+buttons:
+  draw: "描く"
+  clear: "クリア"
+  choose_color: "色を選択"
+
+tabs:
+  canvas: "キャンバス"
+  updates: "更新"
+
+updates:
+  version_1_0: "バージョン 1.0:"
+  initial_release: "- 初回リリース"
+  multi_languages: "- 新たに4言語を追加"
+  hexcolor_support: "- マスターペイントはヘキサカラーに対応"
+
+dialogs:
+  exit_title: "終了"
+  exit_message: "保存されていない変更が失われます。本当に終了しますか？"
+  save_changes_title: "変更を保存"
+  save_changes_message: "変更を保存しますか？"
+  open: "画像を開く"
+  save: "画像を保存"
+  image_filter: "画像ファイル (*.png *.jpg *.bmp)"
