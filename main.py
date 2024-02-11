@@ -1,6 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QApplication, QMainWindow, QAction, QMenu, QVBoxLayout, QHBoxLayout, QPushButton, QWidget, QLabel, QColorDialog, QFileDialog, QMessageBox, QTextEdit, QTabWidget
-from drawing_widget import DrawingWidget
+from app.drawing_widget import DrawingWidget
 
 class PaintApp(QMainWindow):
     def __init__(self):
