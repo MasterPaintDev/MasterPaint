@@ -178,8 +178,10 @@ class PaintApp(QMainWindow):
             self.canvas.save_image(file_path)
 
     def open_in_paint(self):
-        reply = QMessageBox.question(self, "Open in Paint", "Are you sure you want to open the drawing in Paint?",
+        reply = QMessageBox.question(self, self.messages['dialogs']['open_in_paint_title'],
+                                     self.messages['dialogs']['open_in_paint_confirmation'],
                                      QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        
         if reply == QMessageBox.Yes:
             temp_path = os.path.join(os.path.expanduser('~'), 'temp_image.png')  # Save temporary image
             self.canvas.save_image(temp_path)  # Save canvas image
