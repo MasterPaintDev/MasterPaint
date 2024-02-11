@@ -3,6 +3,7 @@ actions:
   save: "Сохранить"
   clear: "Очистить"
   choose_color: "Выбрать Цвет"
+  open_in_paint: "Открыть в Paint"
   exit: "Выход"
   show_updates: "Показать Обновления"
 
