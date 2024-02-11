@@ -1,8 +1,9 @@
 import sys
 import os
-from PyQt5.QtWidgets import QApplication, QMainWindow, QAction, QMenu, QVBoxLayout, QPushButton, QWidget, QColorDialog, QFileDialog, QMessageBox, QTextEdit, QTabWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow, QAction, QMenu, QVBoxLayout, QPushButton, QWidget, QColorDialog, QFileDialog, QMessageBox, QTextEdit, QTabWidget, QLineEdit, QHBoxLayout
 from PyQt5.QtCore import QFile
 import yaml
+import requests
 from app.drawing_widget import DrawingWidget
 
 class PaintApp(QMainWindow):
@@ -22,6 +23,30 @@ class PaintApp(QMainWindow):
         self.create_menus()
         self.create_toolbars()
         self.create_updates_tab()
+
+        self.current_version = "v1.0"
+        self.check_for_updates()
+
+
+    def check_for_updates(self):
+        try:
+            url = 'https://api.github.com/repos/MasterPaintDev/MasterPaint/releases/latest'
+            response = requests.get(url)
+            response.raise_for_status()
+
+            release_info = response.json()
+            latest_version = release_info['tag_name']
+
+            if latest_version != self.current_version:
+                message = f"There is a new version available: {latest_version}!\nPlease visit the website to download it."
+                QMessageBox.information(self, "Update Available", message)
+
+        except requests.exceptions.RequestException as e:
+            print("Error checking for updates:", e)
+
+        except Exception as e:
+            print("Unexpected error checking for updates:", e)
+
 
     def load_language(self):
 
