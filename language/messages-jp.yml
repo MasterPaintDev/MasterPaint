@@ -35,3 +35,5 @@ dialogs:
   open: "画像を開く"
   save: "画像を保存"
   image_filter: "画像ファイル (*.png *.jpg *.bmp)"
+  open_in_paint_confirmation: "本当にペイントで開きますか？"
+  open_in_paint_title: "ペイントで開く"
