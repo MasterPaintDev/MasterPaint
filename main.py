@@ -1,5 +1,7 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QAction, QMenu, QVBoxLayout, QHBoxLayout, QPushButton, QWidget, QLabel, QColorDialog, QFileDialog, QMessageBox, QTextEdit, QTabWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow, QAction, QMenu, QVBoxLayout, QPushButton, QWidget, QColorDialog, QFileDialog, QMessageBox, QTextEdit, QTabWidget
+from PyQt5.QtCore import QFile
+import yaml
 from app.drawing_widget import DrawingWidget
 
 class PaintApp(QMainWindow):
@@ -12,53 +14,89 @@ class PaintApp(QMainWindow):
         self.canvas = DrawingWidget()
         self.setCentralWidget(self.canvas)
 
+        self.language = "en"  # Idioma por defecto
+        self.load_language()
+
         self.create_actions()
         self.create_menus()
         self.create_toolbars()
         self.create_updates_tab()
 
+    def load_language(self):
+        # Cargar mensajes desde el archivo YAML correspondiente al idioma seleccionado
+        file_path = f"language/messages-{self.language}.yml"
+        with open(file_path, 'r', encoding='utf-8') as file:
+            self.messages = yaml.safe_load(file)
+
     def create_actions(self):
-        self.open_action = QAction("Open", self)
+        self.open_action = QAction(self.messages['actions']['open'], self)
         self.open_action.triggered.connect(self.open_file)
 
-        self.save_action = QAction("Save", self)
+        self.save_action = QAction(self.messages['actions']['save'], self)
         self.save_action.triggered.connect(self.save_file)
 
-        self.clear_action = QAction("Clear Canvas", self)
+        self.clear_action = QAction(self.messages['actions']['clear'], self)
         self.clear_action.triggered.connect(self.canvas.clear_canvas)
 
-        self.choose_color_action = QAction("Choose Color", self)
+        self.choose_color_action = QAction(self.messages['actions']['choose_color'], self)
         self.choose_color_action.triggered.connect(self.choose_color)
 
-        self.exit_action = QAction("Exit", self)
+        self.exit_action = QAction(self.messages['actions']['exit'], self)
         self.exit_action.triggered.connect(self.confirm_exit)
 
-        self.show_updates_action = QAction("Show Updates", self)
+        self.show_updates_action = QAction(self.messages['actions']['show_updates'], self)
         self.show_updates_action.triggered.connect(self.show_updates)
 
+        self.language_en_action = QAction("English", self)
+        self.language_en_action.triggered.connect(lambda: self.change_language("en"))
+
+        self.language_es_action = QAction("Spanish", self)
+        self.language_es_action.triggered.connect(lambda: self.change_language("es"))
+
+        self.language_jp_action = QAction("Japanese", self)
+        self.language_jp_action.triggered.connect(lambda: self.change_language("jp"))
+
+        self.language_ru_action = QAction("Russian", self)
+        self.language_ru_action.triggered.connect(lambda: self.change_language("ru"))
+
     def create_menus(self):
-        file_menu = self.menuBar().addMenu("File")
+        self.menuBar().clear()
+
+        file_menu = self.menuBar().addMenu(self.messages['menus']['file'])
         file_menu.addAction(self.open_action)
         file_menu.addAction(self.save_action)
         file_menu.addAction(self.exit_action)
 
-        updates_menu = self.menuBar().addMenu("Updates")
+        updates_menu = self.menuBar().addMenu(self.messages['menus']['updates'])
         updates_menu.addAction(self.show_updates_action)
+
+        language_menu = self.menuBar().addMenu(self.messages['menus']['language'])
+        language_menu.addAction(self.language_en_action)
+        language_menu.addAction(self.language_es_action)
+        language_menu.addAction(self.language_jp_action)
+        language_menu.addAction(self.language_ru_action)
 
     def create_toolbars(self):
         toolbar = self.addToolBar("Tools")
 
-        draw_button = QPushButton("Draw")
-        draw_button.clicked.connect(self.canvas.enable_drawing)
-        toolbar.addWidget(draw_button)
+        self.draw_button = QPushButton()
+        self.clear_button = QPushButton()
+        self.color_button = QPushButton()
 
-        clear_button = QPushButton("Clear")
-        clear_button.clicked.connect(self.canvas.clear_canvas)
-        toolbar.addWidget(clear_button)
+        self.update_buttons_text()
 
-        color_button = QPushButton("Choose Color")
-        color_button.clicked.connect(self.choose_color)
-        toolbar.addWidget(color_button)
+        self.draw_button.clicked.connect(self.canvas.enable_drawing)
+        self.clear_button.clicked.connect(self.canvas.clear_canvas)
+        self.color_button.clicked.connect(self.choose_color)
+
+        toolbar.addWidget(self.draw_button)
+        toolbar.addWidget(self.clear_button)
+        toolbar.addWidget(self.color_button)
+
+    def update_buttons_text(self):
+        self.draw_button.setText(self.messages['buttons']['draw'])
+        self.clear_button.setText(self.messages['buttons']['clear'])
+        self.color_button.setText(self.messages['buttons']['choose_color'])
 
     def create_updates_tab(self):
         self.updates_tab = QWidget()
@@ -69,13 +107,18 @@ class PaintApp(QMainWindow):
         self.updates_text.setReadOnly(True)
         self.updates_layout.addWidget(self.updates_text)
 
-        self.tab_widget = QTabWidget()  # Aquí está la corrección
-        self.tab_widget.addTab(self.canvas, "Canvas")
-        self.tab_widget.addTab(self.updates_tab, "Updates")
+        self.tab_widget = QTabWidget()
+        self.tab_widget.addTab(self.canvas, self.messages['tabs']['canvas'])
+        self.tab_widget.addTab(self.updates_tab, self.messages['tabs']['updates'])
 
-        self.setCentralWidget(self.tab_widget)  # Establecer la pestaña como widget central
+        self.setCentralWidget(self.tab_widget)
 
-        self.updates_text.setPlainText("Version 1.0:\n- Initial release\n\nVersion 1.1:\n- Added Updates tab\n- Bug fixes")
+        self.updates_text.setPlainText(
+            f"{self.messages['updates']['version_1_0']}\n"
+            f"{self.messages['updates']['initial_release']}\n"
+            f"{self.messages['updates']['multi_languages']}\n"
+            f"{self.messages['updates']['hexcolor_support']}\n"
+        )
 
     def choose_color(self):
         color = QColorDialog.getColor()
@@ -83,28 +126,36 @@ class PaintApp(QMainWindow):
             self.canvas.set_pen_color(color)
 
     def open_file(self):
-        file_path, _ = QFileDialog.getOpenFileName(self, "Open Image", "", "Images (*.png *.jpg *.bmp)")
+        file_path, _ = QFileDialog.getOpenFileName(self, self.messages['dialogs']['open'], "", self.messages['dialogs']['image_filter'])
         if file_path:
             self.canvas.load_image(file_path)
 
     def save_file(self):
-        file_path, _ = QFileDialog.getSaveFileName(self, "Save Image", "", "Images (*.png *.jpg *.bmp)")
+        file_path, _ = QFileDialog.getSaveFileName(self, self.messages['dialogs']['save'], "", self.messages['dialogs']['image_filter'])
         if file_path:
             self.canvas.save_image(file_path)
 
     def confirm_exit(self):
-        reply = QMessageBox.question(self, 'Exit', 'Are you sure you want to exit? Any unsaved changes will be lost.',
+        reply = QMessageBox.question(self, self.messages['dialogs']['exit_title'], self.messages['dialogs']['exit_message'],
                                      QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
 
         if reply == QMessageBox.Yes:
             self.close()
 
     def show_updates(self):
-        self.tab_widget.setCurrentIndex(1)  # Cambiar a la pestaña de actualizaciones
+        self.tab_widget.setCurrentIndex(1)
+
+    def change_language(self, language):
+        self.language = language
+        self.load_language()
+        self.create_actions()
+        self.create_menus()
+        self.update_buttons_text()  # Actualizar solo el texto de los botones
+        self.create_updates_tab()
 
     def closeEvent(self, event):
         if self.canvas.isModified():
-            reply = QMessageBox.question(self, 'Save Changes', 'Do you want to save your changes?',
+            reply = QMessageBox.question(self, self.messages['dialogs']['save_changes_title'], self.messages['dialogs']['save_changes_message'],
                                          QMessageBox.Yes | QMessageBox.No | QMessageBox.Cancel, QMessageBox.Cancel)
             if reply == QMessageBox.Yes:
                 self.save_file()
