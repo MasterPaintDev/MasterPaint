@@ -3,6 +3,7 @@ actions:
   save: "保存"
   clear: "クリア"
   choose_color: "色を選択"
+  open_in_paint: "ペイントで開く"
   exit: "終了"
   show_updates: "更新を表示"
 
