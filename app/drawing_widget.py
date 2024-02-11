@@ -8,8 +8,8 @@ class DrawingWidget(QWidget):
 
         self.last_point = QPoint()
         self.drawing = False
-        self.lines = []
-        self.pen_color = Qt.black
+        self.lines = []  # Lista de líneas dibujadas
+        self.pen_color = Qt.black  # Color del pincel
         self.loaded_image = None
 
         self.create_toolbar()
@@ -43,12 +43,15 @@ class DrawingWidget(QWidget):
 
     def paintEvent(self, event):
         painter = QPainter(self)
+        painter.setRenderHint(QPainter.Antialiasing)  # Renderizado antialiasing para líneas suaves
         painter.setPen(QPen(self.pen_color, 2, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
 
         if self.loaded_image:
             painter.drawPixmap(self.rect(), self.loaded_image)
 
-        for line in self.lines:
+        # Dibujar las líneas almacenadas con su color respectivo
+        for line, color in self.lines:
+            painter.setPen(QPen(color, 2, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin))
             painter.drawLine(*line)
 
     def mousePressEvent(self, event):
@@ -59,7 +62,7 @@ class DrawingWidget(QWidget):
     def mouseMoveEvent(self, event):
         if (event.buttons() & Qt.LeftButton) and self.drawing:
             new_point = event.pos()
-            self.lines.append((self.last_point, new_point))
+            self.lines.append(((self.last_point, new_point), self.pen_color))  # Almacenar la línea dibujada con su color
             self.last_point = new_point
             self.update()
 
@@ -85,12 +88,9 @@ class DrawingWidget(QWidget):
             self.loaded_image = pixmap
             self.update()
 
-
-    def enable_drawing(self):
-        self.drawing = True
-
     def set_pen_color(self, color):
         self.pen_color = color
-    
+        self.update()
+
     def isModified(self):
         return bool(self.lines)
