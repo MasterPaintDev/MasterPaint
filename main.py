@@ -1,4 +1,5 @@
 import sys
+import os
 from PyQt5.QtWidgets import QApplication, QMainWindow, QAction, QMenu, QVBoxLayout, QPushButton, QWidget, QColorDialog, QFileDialog, QMessageBox, QTextEdit, QTabWidget
 from PyQt5.QtCore import QFile
 import yaml
@@ -8,7 +9,7 @@ class PaintApp(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("Paint App")
+        self.setWindowTitle("MasterPaint")
         self.setGeometry(100, 100, 800, 600)
 
         self.canvas = DrawingWidget()
@@ -23,8 +24,19 @@ class PaintApp(QMainWindow):
         self.create_updates_tab()
 
     def load_language(self):
-        # Cargar mensajes desde el archivo YAML correspondiente al idioma seleccionado
-        file_path = f"language/messages-{self.language}.yml"
+
+        language_files =  {
+            "en": "messages-en.yml",
+            "es": "messages-es.yml",
+            "jp": "messages-jp.yml",
+            "ru": "messages-ru.yml"
+        }
+
+        file_path = language_files.get(self.language, "messages-en.yml")
+
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        file_path = os.path.join(script_dir, "language", file_path)
+
         with open(file_path, 'r', encoding='utf-8') as file:
             self.messages = yaml.safe_load(file)
 
