@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QAction, QMenuBar, QFileDialog, QColorDialog
+from PyQt5.QtWidgets import QApplication, QMainWindow, QAction, QMenu, QVBoxLayout, QHBoxLayout, QPushButton, QWidget, QLabel, QColorDialog, QFileDialog, QMessageBox
 from drawing_widget import DrawingWidget
 
 class PaintApp(QMainWindow):
@@ -12,46 +12,55 @@ class PaintApp(QMainWindow):
         self.canvas = DrawingWidget()
         self.setCentralWidget(self.canvas)
 
-        self.create_menu()
-        self.create_toolbar()
+        self.create_actions()
+        self.create_menus()
+        self.create_toolbars()
 
-    def create_menu(self):
-        main_menu = self.menuBar()
+    def create_actions(self):
+        self.open_action = QAction("Open", self)
+        self.open_action.triggered.connect(self.open_file)
 
-        file_menu = main_menu.addMenu("File")
-        open_action = QAction("Open", self)
-        open_action.triggered.connect(self.open_file)
-        file_menu.addAction(open_action)
+        self.save_action = QAction("Save", self)
+        self.save_action.triggered.connect(self.save_file)
 
-        save_action = QAction("Save", self)
-        save_action.triggered.connect(self.save_file)
-        file_menu.addAction(save_action)
+        self.clear_action = QAction("Clear Canvas", self)
+        self.clear_action.triggered.connect(self.canvas.clear_canvas)
 
-        file_menu.addSeparator()
+        self.choose_color_action = QAction("Choose Color", self)
+        self.choose_color_action.triggered.connect(self.choose_color)
 
-        exit_action = QAction("Exit", self)
-        exit_action.triggered.connect(self.close)
-        file_menu.addAction(exit_action)
+        self.exit_action = QAction("Exit", self)
+        self.exit_action.triggered.connect(self.confirm_exit)
 
-        edit_menu = main_menu.addMenu("Edit")
-        color_action = QAction("Choose Color", self)
-        color_action.triggered.connect(self.canvas.choose_color)
-        edit_menu.addAction(color_action)
+    def create_menus(self):
+        file_menu = self.menuBar().addMenu("File")
+        file_menu.addAction(self.open_action)
+        file_menu.addAction(self.save_action)
+        file_menu.addAction(self.exit_action)
 
-        def create_toolbar(self):
-            toolbar = self.addToolBar("Tools")
+        edit_menu = self.menuBar().addMenu("Edit")
+        edit_menu.addAction(self.clear_action)
+        edit_menu.addAction(self.choose_color_action)
 
-            draw_action = QAction("Draw", self)
-            draw_action.triggered.connect(self.canvas.enable_drawing)
-            toolbar.addAction(draw_action)
+    def create_toolbars(self):
+        toolbar = self.addToolBar("Tools")
 
-            clear_action = QAction("Clear Canvas", self)
-            clear_action.triggered.connect(self.canvas.clear_canvas)
-            toolbar.addAction(clear_action)
+        draw_button = QPushButton("Draw")
+        draw_button.clicked.connect(self.canvas.enable_drawing)
+        toolbar.addWidget(draw_button)
 
-            color_action = QAction("Choose Color", self)
-            color_action.triggered.connect(self.canvas.choose_color)
-            toolbar.addAction(color_action)
+        clear_button = QPushButton("Clear")
+        clear_button.clicked.connect(self.canvas.clear_canvas)
+        toolbar.addWidget(clear_button)
+
+        color_button = QPushButton("Choose Color")
+        color_button.clicked.connect(self.choose_color)
+        toolbar.addWidget(color_button)
+
+    def choose_color(self):
+        color = QColorDialog.getColor()
+        if color.isValid():
+            self.canvas.set_pen_color(color)
 
     def open_file(self):
         file_path, _ = QFileDialog.getOpenFileName(self, "Open Image", "", "Images (*.png *.jpg *.bmp)")
@@ -62,6 +71,25 @@ class PaintApp(QMainWindow):
         file_path, _ = QFileDialog.getSaveFileName(self, "Save Image", "", "Images (*.png *.jpg *.bmp)")
         if file_path:
             self.canvas.save_image(file_path)
+
+    def confirm_exit(self):
+        reply = QMessageBox.question(self, 'Exit', 'Are you sure you want to exit? Any unsaved changes will be lost.',
+                                     QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+
+        if reply == QMessageBox.Yes:
+            self.close()
+
+    def closeEvent(self, event):
+        if self.canvas.isModified():
+            reply = QMessageBox.question(self, 'Save Changes', 'Do you want to save your changes?',
+                                         QMessageBox.Yes | QMessageBox.No | QMessageBox.Cancel, QMessageBox.Cancel)
+            if reply == QMessageBox.Yes:
+                self.save_file()
+            elif reply == QMessageBox.Cancel:
+                event.ignore()
+                return
+
+        event.accept()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
