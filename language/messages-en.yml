@@ -3,6 +3,7 @@ actions:
   save: "Save"
   clear: "Clear"
   choose_color: "Choose Color"
+  open_in_paint: "Open in Paint"
   exit: "Exit"
   show_updates: "Show Updates"
 
