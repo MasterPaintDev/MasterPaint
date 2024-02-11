@@ -35,3 +35,5 @@ dialogs:
   open: "Open Image"
   save: "Save Image"
   image_filter: "Images (*.png *.jpg *.bmp)"
+  open_in_paint_confirmation: "Are you sure you want to open the drawing in Paint?"
+  open_in_paint_title: "Open in Paint"
