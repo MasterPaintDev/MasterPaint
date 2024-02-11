@@ -18,15 +18,15 @@ class DrawingWidget(QWidget):
         toolbar = QToolBar()
         toolbar.setOrientation(Qt.Vertical)
         
-        draw_action = QAction("Draw", self)
+        draw_action = QAction("", self)
         draw_action.triggered.connect(self.enable_drawing)
         toolbar.addAction(draw_action)
 
-        clear_action = QAction("Clear Canvas", self)
+        clear_action = QAction("", self)
         clear_action.triggered.connect(self.clear_canvas)
         toolbar.addAction(clear_action)
 
-        color_action = QAction("Choose Color", self)
+        color_action = QAction("", self)
         color_action.triggered.connect(self.choose_color)
         toolbar.addAction(color_action)
 
@@ -84,3 +84,13 @@ class DrawingWidget(QWidget):
             self.clear_canvas()
             self.loaded_image = pixmap
             self.update()
+
+
+    def enable_drawing(self):
+        self.drawing = True
+
+    def set_pen_color(self, color):
+        self.pen_color = color
+    
+    def isModified(self):
+        return bool(self.lines)
