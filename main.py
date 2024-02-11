@@ -6,6 +6,7 @@ import yaml
 import requests
 from app.drawing_widget import DrawingWidget
 import time
+from PIL import Image
 
 class PaintApp(QMainWindow):
     def __init__(self):
@@ -78,6 +79,9 @@ class PaintApp(QMainWindow):
         self.choose_color_action = QAction(self.messages['actions']['choose_color'], self)
         self.choose_color_action.triggered.connect(self.choose_color)
 
+        self.open_in_paint_action = QAction(self.messages['actions']['open_in_paint'], self)
+        self.open_in_paint_action.triggered.connect(self.open_in_paint)
+
         self.exit_action = QAction(self.messages['actions']['exit'], self)
         self.exit_action.triggered.connect(self.confirm_exit)
 
@@ -102,6 +106,7 @@ class PaintApp(QMainWindow):
         file_menu = self.menuBar().addMenu(self.messages['menus']['file'])
         file_menu.addAction(self.open_action)
         file_menu.addAction(self.save_action)
+        file_menu.addAction(self.open_in_paint_action)
         file_menu.addAction(self.exit_action)
 
         updates_menu = self.menuBar().addMenu(self.messages['menus']['updates'])
@@ -171,6 +176,11 @@ class PaintApp(QMainWindow):
         file_path, _ = QFileDialog.getSaveFileName(self, self.messages['dialogs']['save'], "", self.messages['dialogs']['image_filter'])
         if file_path:
             self.canvas.save_image(file_path)
+
+    def open_in_paint(self):
+        temp_path = os.path.join(os.path.expanduser('~'), 'temp_image.png')  # Save temporary image
+        self.canvas.save_image(temp_path)  # Save canvas image
+        os.system(f"start mspaint {temp_path}")  # Open the image in Paint
 
     def confirm_exit(self):
         reply = QMessageBox.question(self, self.messages['dialogs']['exit_title'], self.messages['dialogs']['exit_message'],
