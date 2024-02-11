@@ -3,6 +3,7 @@ actions:
   save: "Guardar"
   clear: "Limpiar"
   choose_color: "Seleccionar Color"
+  open_in_paint: "Abrir en paint"
   exit: "Salir"
   show_updates: "Mostrar Actualizaciones"
 
