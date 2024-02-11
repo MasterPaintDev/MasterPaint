@@ -35,3 +35,5 @@ dialogs:
   open: "Открыть Изображение"
   save: "Сохранить Изображение"
   image_filter: "Изображения (*.png *.jpg *.bmp)"
+  open_in_paint_confirmation: "Вы уверены, что хотите открыть рисунок в Paint?"
+  open_in_paint_title: "Открыть в красках"
