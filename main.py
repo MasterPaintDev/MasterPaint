@@ -109,13 +109,13 @@ class PaintApp(QMainWindow):
         self.language_en_action = QAction("English", self)
         self.language_en_action.triggered.connect(lambda: self.change_language("en"))
 
-        self.language_es_action = QAction("Spanish", self)
+        self.language_es_action = QAction("Spanish (Español)", self)
         self.language_es_action.triggered.connect(lambda: self.change_language("es"))
 
-        self.language_jp_action = QAction("Japanese", self)
+        self.language_jp_action = QAction("Japanese (日本語)", self)
         self.language_jp_action.triggered.connect(lambda: self.change_language("jp"))
 
-        self.language_ru_action = QAction("Russian", self)
+        self.language_ru_action = QAction("Russian (Русский)", self)
         self.language_ru_action.triggered.connect(lambda: self.change_language("ru"))
 
         self.language_ca_action = QAction("Catalan", self)
@@ -210,8 +210,8 @@ class PaintApp(QMainWindow):
                                      QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         
         if reply == QMessageBox.Yes:
-            temp_path = os.path.join(os.path.expanduser('~'), 'temp_image.png')  # Save temporary image
-            self.canvas.save_image(temp_path)  # Save canvas image
+            temp_path = os.path.join(os.path.expanduser('~'), 'temp_image.png')
+            self.canvas.save_image(temp_path)
             os.system(f"start mspaint {temp_path}")
 
     def confirm_exit(self):
@@ -229,7 +229,7 @@ class PaintApp(QMainWindow):
         self.load_language()
         self.create_actions()
         self.create_menus()
-        self.update_buttons_text()  # Actualizar solo el texto de los botones
+        self.update_buttons_text()
         self.create_updates_tab()
 
     def closeEvent(self, event):
