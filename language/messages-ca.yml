@@ -1,0 +1,39 @@
+actions:
+  open: "Obrir"
+  save: "Desar"
+  clear: "Netejar"
+  choose_color: "Escollir Color"
+  open_in_paint: "Obrir en Pintura"
+  exit: "Sortir"
+  show_updates: "Mostrar Actualitzacions"
+
+menus:
+  file: "Fitxer"
+  updates: "Actualitzacions"
+  language: "Idioma"
+
+buttons:
+  draw: "Dibuixar"
+  clear: "Netejar"
+  choose_color: "Escollir Color"
+
+tabs:
+  canvas: "Llenç"
+  updates: "Actualitzacions"
+
+updates:
+  version_1_0: "Versió 1.0:"
+  initial_release: "- Llançament inicial"
+  multi_languages: "- Disponibles 4 nous idiomes"
+  hexcolor_support: "- La pintura mestra té suport integrat per codi hexadecimal"
+
+dialogs:
+  exit_title: "Sortir"
+  exit_message: "Segur que voleu sortir? Es perdran tots els canvis no desats."
+  save_changes_title: "Desar Canvis"
+  save_changes_message: "Voleu desar els canvis?"
+  open: "Obrir Imatge"
+  save: "Desar Imatge"
+  image_filter: "Imatges (*.png *.jpg *.bmp)"
+  open_in_paint_confirmation: "Segur que voleu obrir el dibuix a Pintura?"
+  open_in_paint_title: "Obrir en Pintura"
