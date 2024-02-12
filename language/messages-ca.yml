@@ -27,6 +27,10 @@ updates:
   multi_languages: "- Disponibles 4 nous idiomes"
   hexcolor_support: "- La pintura mestra té suport integrat per codi hexadecimal"
 
+  version_1_1: "Versió 1.1:"
+  new_lenguage_catalan: "- Nou idioma que és el català"
+  support_with_paint: "- Nou idioma que és el català"
+
 dialogs:
   exit_title: "Sortir"
   exit_message: "Segur que voleu sortir? Es perdran tots els canvis no desats."
