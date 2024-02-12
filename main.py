@@ -1,13 +1,19 @@
 import sys
 import os
-from PyQt5.QtWidgets import QApplication, QMainWindow, QAction, QMenu, QVBoxLayout, QPushButton, QWidget, QColorDialog, QFileDialog, QMessageBox, QTextEdit, QTabWidget, QLineEdit, QHBoxLayout
-from PyQt5.QtCore import QFile
+import time
 import yaml
 import requests
-from app.drawing_widget import DrawingWidget
-import time
-from PIL import Image
 import discord
+from PIL import Image
+from PyQt5.QtWidgets import (
+    QApplication, QMainWindow, QAction, QMenu, QVBoxLayout, QPushButton,
+    QWidget, QColorDialog, QFileDialog, QMessageBox, QTextEdit, QTabWidget,
+    QLineEdit, QHBoxLayout, QInputDialog
+)
+from PyQt5.QtCore import QFile
+from app.drawing_widget import DrawingWidget
+from app.auth import AuthenticationManager
+
 
 class PaintApp(QMainWindow):
     def __init__(self):
@@ -18,6 +24,7 @@ class PaintApp(QMainWindow):
 
         self.canvas = DrawingWidget()
         self.setCentralWidget(self.canvas)
+        self.auth_manager = AuthenticationManager()
 
         self.language = "en"
         self.load_language()
@@ -139,6 +146,36 @@ class PaintApp(QMainWindow):
         language_menu.addAction(self.language_jp_action)
         language_menu.addAction(self.language_ru_action)
         language_menu.addAction(self.language_ca_action)
+
+        auth_menu = self.menuBar().addMenu("Authentication")
+        self.register_action = QAction("Register", self)
+        self.register_action.triggered.connect(self.register_user)
+        auth_menu.addAction(self.register_action)
+
+        self.login_action = QAction("Login", self)
+        self.login_action.triggered.connect(self.login_user)
+        auth_menu.addAction(self.login_action)
+
+    def register_user(self):
+        username, ok = QInputDialog.getText(self, 'Register', 'Enter username:')
+        if ok:
+            password, ok = QInputDialog.getText(self, 'Register', 'Enter password:', QLineEdit.Password)
+            if ok:
+                if self.auth_manager.register(username, password):
+                    QMessageBox.information(self, "Registration Successful", "User registered successfully.")
+                else:
+                    QMessageBox.warning(self, "Registration Failed", "Username already exists.")
+
+    def login_user(self):
+        username, ok = QInputDialog.getText(self, 'Login', 'Enter username:')
+        if ok:
+            password, ok = QInputDialog.getText(self, 'Login', 'Enter password:', QLineEdit.Password)
+            if ok:
+                if self.auth_manager.login(username, password):
+                    QMessageBox.information(self, "Login Successful", "Logged in successfully.")
+                else: 
+                    QMessageBox.warning(self, "Login Failed", "Invalid username or password.")
+    
 
     def create_toolbars(self):
         toolbar = self.addToolBar("Tools")
