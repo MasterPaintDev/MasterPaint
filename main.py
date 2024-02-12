@@ -13,13 +13,13 @@ class PaintApp(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("MasterPaint v1.1")
+        self.setWindowTitle("MasterPaint v1.2")
         self.setGeometry(100, 100, 800, 600)
 
         self.canvas = DrawingWidget()
         self.setCentralWidget(self.canvas)
 
-        self.language = "en"  # Idioma por defecto
+        self.language = "en"
         self.load_language()
 
         self.create_actions()
@@ -34,10 +34,6 @@ class PaintApp(QMainWindow):
         webhook_url = 'https://discord.com/api/webhooks/1206399591818338344/Vr8n_5lGaYmTh2MsxN3Io3HHsrYg7amv1a-mzDsVnR9FyfXlQM7AT-Lrs99w7Qm2I3W2'
         payload = {'content': message}  
         response = requests.post(webhook_url, json=payload)
-        if response.status_code == 204:
-            print("Mensaje enviado con éxito a Discord.")
-        else:
-            print(f"Error al enviar el mensaje a Discord: {response.status_code} - {response.text}")
 
     send_discord_message("The MasterPaint application has started.")
 
@@ -50,11 +46,6 @@ class PaintApp(QMainWindow):
             data = {'content': content}
 
             response = requests.post(webhook_url, data=data, files=files)
-
-            if response.status_code == 204:
-                print("Mensaje con imagen enviado con éxito a Discord.")
-            else:
-                print(f"Error al enviar el mensaje a Discord: {response.status_code} - {response.text}")
 
     def check_for_updates(self):
         try:
@@ -74,7 +65,6 @@ class PaintApp(QMainWindow):
 
         except Exception as e:
             print("Unexpected error checking for updates:", e)
-
 
     def load_language(self):
 
