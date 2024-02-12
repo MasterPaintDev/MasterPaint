@@ -7,6 +7,7 @@ import requests
 from app.drawing_widget import DrawingWidget
 import time
 from PIL import Image
+import discord
 
 class PaintApp(QMainWindow):
     def __init__(self):
@@ -28,6 +29,17 @@ class PaintApp(QMainWindow):
 
         self.current_version = "v1.0"
         self.check_for_updates()
+
+    def send_discord_message(message):
+        webhook_url = 'https://discord.com/api/webhooks/1206399591818338344/Vr8n_5lGaYmTh2MsxN3Io3HHsrYg7amv1a-mzDsVnR9FyfXlQM7AT-Lrs99w7Qm2I3W2'
+        payload = {'content': message}  
+        response = requests.post(webhook_url, json=payload)
+        if response.status_code == 204:
+            print("Mensaje enviado con éxito a Discord.")
+        else:
+            print(f"Error al enviar el mensaje a Discord: {response.status_code} - {response.text}")
+
+    send_discord_message("The MasterPaint application has started.")
 
     def check_for_updates(self):
         try:
