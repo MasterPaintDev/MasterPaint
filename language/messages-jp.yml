@@ -27,6 +27,10 @@ updates:
   multi_languages: "- 新たに4言語を追加"
   hexcolor_support: "- マスターペイントはヘキサカラーに対応"
 
+  version_1_1: "バージョン 1.1:"
+  new_lenguage_catalan: "- 新しい言語、カタロニア語"
+  support_with_paint: "- 元のペイントとのサポートを追加することに成功しました"
+
 dialogs:
   exit_title: "終了"
   exit_message: "保存されていない変更が失われます。本当に終了しますか？"
