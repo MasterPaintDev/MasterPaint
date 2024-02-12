@@ -27,6 +27,10 @@ updates:
   multi_languages: "- 4 nuevos idiomas disponibles"
   hexcolor_support: "- Master paint cuenta con soporte de hexcolor integrado"
 
+  version_1_1: "Versión 1.1:"
+  new_lenguage_catalan: "- Nuevo idioma que es el catalán"
+  support_with_paint: "- hemos logrado agregar soporte con paint original"
+
 dialogs:
   exit_title: "Salir"
   exit_message: "¿Está seguro de que desea salir? Se perderán los cambios no guardados."
