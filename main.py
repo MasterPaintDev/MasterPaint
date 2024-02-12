@@ -27,7 +27,7 @@ class PaintApp(QMainWindow):
         self.create_toolbars()
         self.create_updates_tab()
 
-        self.current_version = "v1.0"
+        self.current_version = "v1.2"
         self.check_for_updates()
 
     def send_discord_message(message):
