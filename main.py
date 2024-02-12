@@ -12,7 +12,7 @@ class PaintApp(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("MasterPaint")
+        self.setWindowTitle("MasterPaint v1.1")
         self.setGeometry(100, 100, 800, 600)
 
         self.canvas = DrawingWidget()
@@ -161,6 +161,10 @@ class PaintApp(QMainWindow):
         self.setCentralWidget(self.tab_widget)
 
         self.updates_text.setPlainText(
+            f"{self.messages['updates']['version_1_1']}\n"
+            f"{self.messages['updates']['new_lenguage_catalan']}\n"
+            f"{self.messages['updates']['support_with_paint']}\n\n"
+            
             f"{self.messages['updates']['version_1_0']}\n"
             f"{self.messages['updates']['initial_release']}\n"
             f"{self.messages['updates']['multi_languages']}\n"
