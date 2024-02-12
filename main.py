@@ -55,7 +55,8 @@ class PaintApp(QMainWindow):
             "en": "messages-en.yml",
             "es": "messages-es.yml",
             "jp": "messages-jp.yml",
-            "ru": "messages-ru.yml"
+            "ru": "messages-ru.yml",
+            "ca": "messages-ca.yml"
         }
 
         file_path = language_files.get(self.language, "messages-en.yml")
@@ -100,6 +101,9 @@ class PaintApp(QMainWindow):
         self.language_ru_action = QAction("Russian", self)
         self.language_ru_action.triggered.connect(lambda: self.change_language("ru"))
 
+        self.language_ca_action = QAction("Catalan", self)
+        self.language_ca_action.triggered.connect(lambda: self.change_language("ca"))
+
     def create_menus(self):
         self.menuBar().clear()
 
@@ -117,6 +121,7 @@ class PaintApp(QMainWindow):
         language_menu.addAction(self.language_es_action)
         language_menu.addAction(self.language_jp_action)
         language_menu.addAction(self.language_ru_action)
+        language_menu.addAction(self.language_ca_action)
 
     def create_toolbars(self):
         toolbar = self.addToolBar("Tools")
