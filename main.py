@@ -14,7 +14,6 @@ from PyQt5.QtCore import QFile
 from app.drawing_widget import DrawingWidget
 from app.auth import AuthenticationManager
 
-
 class PaintApp(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -176,7 +175,6 @@ class PaintApp(QMainWindow):
                 else: 
                     QMessageBox.warning(self, "Login Failed", "Invalid username or password.")
     
-
     def create_toolbars(self):
         toolbar = self.addToolBar("Tools")
 
