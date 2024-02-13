@@ -11,6 +11,7 @@ menus:
   file: "Fitxer"
   updates: "Actualitzacions"
   language: "Idioma"
+  Authentication: "Autenticació"
 
 buttons:
   draw: "Dibuixar"
@@ -30,6 +31,10 @@ updates:
   version_1_1: "Versió 1.1:"
   new_lenguage_catalan: "- Nou idioma que és el català"
   support_with_paint: "- hem aconseguit afegir suport amb la pintura original"
+
+  version_1_2: "Versió 1.2"
+  login_system: "- hem afegit el sistema d'inici de sessió i registre, però encara està en fase beta."
+  bug_fixes: "- hem corregit diversos errors"
 
 dialogs:
   exit_title: "Sortir"
