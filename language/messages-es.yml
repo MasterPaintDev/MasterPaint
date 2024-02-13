@@ -11,6 +11,7 @@ menus:
   file: "Archivo"
   updates: "Actualizaciones"
   language: "Idioma"
+  Authentication: "Autentificación"
 
 buttons:
   draw: "Dibujar"
@@ -30,6 +31,10 @@ updates:
   version_1_1: "Versión 1.1:"
   new_lenguage_catalan: "- Nuevo idioma que es el catalán"
   support_with_paint: "- hemos logrado agregar soporte con paint original"
+
+  version_1_2: "Versión 1.2"
+  login_system: "- hemos añadido el sistema de inicio de sesión y registro, pero aún está en fase beta."
+  bug_fixes: "- hemos corregido varios errores"
 
 dialogs:
   exit_title: "Salir"
