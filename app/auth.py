@@ -1,5 +1,6 @@
 import hashlib
 import json
+from datetime import datetime
 
 class AuthenticationManager:
     def __init__(self):
@@ -21,7 +22,11 @@ class AuthenticationManager:
         if username in self.users:
             return False  # Usuario ya registrado
         hashed_password = hashlib.sha256(password.encode()).hexdigest()
-        self.users[username] = hashed_password
+        registration_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        self.users[username] = {
+            'hashed_password': hashed_password,
+            'registration_date': registration_date
+        }
         self.save_users()
         return True  # Registro exitoso
 
@@ -29,4 +34,4 @@ class AuthenticationManager:
         if username not in self.users:
             return False  # Usuario no registrado
         hashed_password = hashlib.sha256(password.encode()).hexdigest()
-        return self.users[username] == hashed_password
+        return self.users[username]['hashed_password'] == hashed_password
