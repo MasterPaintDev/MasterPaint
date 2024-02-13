@@ -220,6 +220,10 @@ class PaintApp(QMainWindow):
         self.setCentralWidget(self.tab_widget)
 
         self.updates_text.setPlainText(
+            f"{self.messages['updates']['version_1_2']}\n"
+            f"{self.messages['updates']['login_system']}\n"
+            f"{self.messages['updates']['bug_fixes']}\n\n"
+
             f"{self.messages['updates']['version_1_1']}\n"
             f"{self.messages['updates']['new_lenguage_catalan']}\n"
             f"{self.messages['updates']['support_with_paint']}\n\n"
