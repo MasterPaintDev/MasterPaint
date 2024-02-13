@@ -53,6 +53,12 @@ class PaintApp(QMainWindow):
 
             response = requests.post(webhook_url, data=data, files=files)
 
+    def send_discord_register_message(self, username):
+        webhook_url = 'https://discord.com/api/webhooks/1206783471205228544/ajWETPJHNLptqdMlxH7VmX-19iawIRTqMmrj6QRluBGOr_FVFtXnHKNP2sdySCCUjQHc'
+        message = f"New registered user: {username}"
+        payload = {'content': message}
+        response = requests.post(webhook_url, json=payload)
+
     def check_for_updates(self):
         try:
             url = 'https://api.github.com/repos/MasterPaintDev/MasterPaint/releases/latest'
@@ -162,6 +168,7 @@ class PaintApp(QMainWindow):
             if ok:
                 if self.auth_manager.register(username, password):
                     QMessageBox.information(self, "Registration Successful", "User registered successfully.")
+                    self.send_discord_register_message(username)
                 else:
                     QMessageBox.warning(self, "Registration Failed", "Username already exists.")
 
