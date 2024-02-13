@@ -11,6 +11,7 @@ menus:
   file: "ファイル"
   updates: "更新"
   language: "言語"
+  Authentication: "認証"
 
 buttons:
   draw: "描く"
@@ -30,6 +31,10 @@ updates:
   version_1_1: "バージョン 1.1:"
   new_lenguage_catalan: "- 新しい言語、カタロニア語"
   support_with_paint: "- 元のペイントとのサポートを追加することに成功しました"
+
+  version_1_2: "バージョン 1.2"
+  login_system: "- ログインと登録システムを追加しましたが、まだベータ版です。"
+  bug_fixes: "- いくつかの誤りを訂正しました。"
 
 dialogs:
   exit_title: "終了"
